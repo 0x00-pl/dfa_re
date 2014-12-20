@@ -1,0 +1,4 @@
+[Project]
+Name=dfa_re
+Manager=KDevCMakeManager
+VersionControl=kdevgit
