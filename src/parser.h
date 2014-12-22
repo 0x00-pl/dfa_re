@@ -60,9 +60,13 @@ namespace parser{
     string name;
     capture(){add_seq();}
     ~capture(){
+      clear();
+    }
+    void clear(){
       for(auto i : seqs){
 	delete i;
       }
+      seqs.clear();
     }
     void add_node(node*n){seqs.back()->items.push_back(n);}
     void add_seq(){

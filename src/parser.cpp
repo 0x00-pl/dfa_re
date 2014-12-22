@@ -134,7 +134,7 @@ public:
   }
   virtual node* visit(capture* n){
     capture* ret= new capture;
-    ret->seqs.clear();
+    ret->clear();
     for(size_t i=0; i<n->seqs.size(); i++){
       ret->seqs.push_back( dynamic_cast<seq*>(n->seqs[i]->visit(this)) );
     }

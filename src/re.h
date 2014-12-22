@@ -21,6 +21,8 @@ namespace dfa_re{
       nfa::build_nfa(nfa, parsed, nfa_end_state_set);
       
       dfa::build_dfa(nfa,nfa_end_state_set, dfa,dfa_end_state_set);
+      
+      delete parsed;
     }
     size_t match_step(size_t state, string& s, size_t& pos){
 #ifdef PL_DEBUG
