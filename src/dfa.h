@@ -82,5 +82,33 @@ namespace dfa{
     }
   }
 
+  void dfa_state_merge_edge(graph::graph& dfa, size_t node_id){
+    vector<size_t>& adj= dfa.adj(node_id);
+    sort(adj.begin(), adj.end(), [&](size_t a, size_t b){
+      graph::char_edge* ea= dynamic_cast<graph::char_edge*>(dfa.edges[a]);
+      graph::char_edge* eb= dynamic_cast<graph::char_edge*>(dfa.edges[b]);
+      return ea->low < eb->low;
+    });
+    
+    for(size_t i=1; i<adj.size();){
+      graph::char_edge* em1= dynamic_cast<graph::char_edge*>(dfa.edges[adj[i-1]]);
+      graph::char_edge* ecur= dynamic_cast<graph::char_edge*>(dfa.edges[adj[i]]);
+      if(em1->to==ecur->to && em1->heigh+1==ecur->low){
+	em1->heigh= ecur->heigh;
+	dfa.remove_edge_from_node(adj[i]);
+      }else{
+	i++;
+      }
+    }
+  }
+  
+  void dfa_merge_edge(graph::graph& dfa){
+    for(size_t i=0; i<dfa.sum_v(); i++){
+      dfa_state_merge_edge(dfa,i);
+    }
+#ifdef PL_DEBUG
+    dfa.print(cout);
+#endif
+  }
   
 }

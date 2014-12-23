@@ -22,6 +22,8 @@ namespace dfa_re{
       
       dfa::build_dfa(nfa,nfa_end_state_set, dfa,dfa_end_state_set);
       
+      dfa::dfa_merge_edge(dfa);
+      
       delete parsed;
     }
     size_t match_step(size_t state, string& s, size_t& pos){
